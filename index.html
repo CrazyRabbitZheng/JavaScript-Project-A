@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>CNA Rolling Stock</title>
+</head>
+<body>
+    <main>
+        <!--main page-->
+        <div id="divA">
+            <h1>CNA - Rolling Stock - MAIN MENU</h1>
+            <p>Select Desired Activity via Radio Button.</p>
+            <!--below is the radio button with no button selected initially-->
+            <input type="radio" name="activity" id="create_boxcar_id" value="create_boxcar">Create Boxcar
+            <br><br>
+            <input type="radio" name="activity" id="add_freight_id" value="add_freight">Add Freight
+            <br><br>
+            <input type="radio" name="activity" id="boxcar_data_id" value="boxcar_data">Boxcar Data
+            <br><br>
+            <input type="radio" name="activity" id="warehouse_data_id" value="warehouse_data">Warehouse Data
+            <br><br>
+            <input type="radio" name="activity" id="all_freight_status_id" value="all_freight_status">All Freight Status
+        </div>
+
+        <!--boxcar page-->
+        <div id="divB" class = "hidden">
+            <h1>CNA - Rolling Stock - Create New Boxcar</h1>
+            <form action="index.html" method="get">
+                <!--The label's for attribute refers to form fields by their id attribute.-->
+                <!--when for noting pointing an id, this might prevent the browser from correctly autofilling the form and accessibility tools from working correctly.-->
+                <label for="boxcar_id">Boxcar ID: </label>
+                <input type="text" id="boxcar_id" name="boxcar" title="Should be BX followed by 3 digits" pattern="BX\d{3}">
+                <span id="span1"></span>
+                <br><br>
+
+                <label for="tare_weight_id">TARE Weight:     </label>
+                <input type="number" id="tare_weight_id" name="tare_weight" title="enter a number between 0 to 20000">
+                <span id="span2"></span>
+                <br><br>
+
+                <label for="max_gross_weight_id">Max Gross Weight: </label>
+                <input type="number" id="max_gross_weight_id" name="max_gross_weight" title="must be greater than tare weight and less than 200000">
+                <span id="span3"></span>
+                <br><br>
+
+                <label for="cargo_weight_id">Cargo Weight: </label>
+                <input type="text" id="cargo_weight_id" name="cargo_weight" disabled>
+                <span></span>
+                <br><br>
+
+                <label for="gross_weight_id">Gross Weight: </label>
+                <input type="text" id="gross_weight_id" name="gross_weight" disabled>
+                <span></span>
+                <br><br><br>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" id="process_box_car_id">Process Box Car</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="reset" id="reset_form_id">Reset Form</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" id="return_to_main_page_id_b">Return to Main Page</button>
+            <br><br>
+            </form>
+        </div>
+        <hr  id="hr_id" class="hidden">
+
+
+        <!--configured boxcar-->
+        <div id="divC" class="hidden">
+            <h1>CNA - Rolling Stock Report</h1>
+            <table id="table1">
+                <thead>
+                    <tr>
+                        <th>Box Car ID</th>
+                        <th>TARE</th>
+                        <th>Max Gross</th>
+                        <th>Cargo</th>
+                        <th>Gross</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot >
+                    <tr><td colspan="5" id="td1">Total Cargo Weight: </td></tr>
+                </tfoot>
+            </table>
+            <br><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" id="return_to_create_box_car_id">Return to Create Box Car</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="button" id="return_to_main_page_id_c">Return to Main Page</button>
+        </div>
+
+        <!--add freight page-->
+        <div id="divD" class="hidden">
+            <label for="boxcar_select_id">Box car ID:</label>
+            <select name="boxcarIDs" id="boxcar_select_id">
+                <option id="must_select" disabled selected value="select">Select an option</option>
+                <option value="BX500">BX500</option>
+                <option value="BX505">BX505</option>
+                <option value="BX520">BX520</option>
+            </select>
+            <br>
+            <hr>
+            <label for="divD_select_id">Box Car Selected : </label>
+            <input type="text" name="divD selcetion" id="divD_select_id" disabled>
+            <br>
+            <br>
+            <form id="divD_form" action="index.html" method="get">
+                <label for="transportID_id">Transport ID: </label>
+                <input type="text" name="tansport ID" id="transportID_id" disabled>
+                <span id="span4"></span><br><br>
+
+                <label for="description_id">Description :</label>
+                <input type="text" name="description" id="description_id" disabled>
+                <span id="span5"></span><br><br>
+
+                <label for="divD_cargo_weight_id">Cargo Weight : </label>
+                <input type="number" name="cargo weight" id="divD_cargo_weight_id" disabled>
+                <span id="span6"></span><br><br>
+
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button id="divD_button1" type="button" disabled>Process Cargo</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button id="divD_button2" type="button" disabled>Reset Form</button>
+            </form>
+
+            <br><br>
+            <h2 class="hidden">Cargo Diverted to Warehouse -- weight exceeded</h2>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="return_to_main_page_id_d">Return to Main Page</button>
+        </div>
+
+        <!--boxcar manifest for selected boxcar-->
+        <div id="divE" class="hidden">
+            <h1>CNA -- BOX CAR BX500 Manifest</h1>
+            <table id="table2">
+                <thead>
+                    <tr>
+                        <th>Transport ID</th>
+                        <th>Description</th>
+                        <th>Weight</th>
+                    </tr>
+                </thead>
+                <tbody id="divE_tb">
+                
+                </tbody>
+                <tfoot >
+                    <tr><td colspan="3" id="td2">Total Cargo Weight: </td></tr>
+                </tfoot>
+            </table>
+            <br>
+            <h1>CNA -- BOX CAR BX505 Manifest</h1>
+            <table id="table3">
+                <thead>
+                    <tr>
+                        <th>Transport ID</th>
+                        <th>Description</th>
+                        <th>Weight</th>
+                    </tr>
+                </thead>
+                <tbody id="divE_tb2">
+                </tbody>
+                <tfoot >
+                    <tr><td colspan="3" id="td3">Total Cargo Weight: </td></tr>
+                </tfoot>
+            </table>
+            <br>
+            <h1>CNA -- BOX CAR BX520 Manifest</h1>
+            <table id="table4">
+                <thead>
+                    <tr>
+                        <th>Transport ID</th>
+                        <th>Description</th>
+                        <th>Weight</th>
+                    </tr>
+                </thead>
+                <tbody id="divE_tb3">
+                </tbody>
+                <tfoot >
+                    <tr><td colspan="3" id="td4">Total Cargo Weight: </td></tr>
+                </tfoot>
+            </table>
+            <br>
+            <button id="divE_button1" type="button">Return to Create Freight Entry</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="divE_button2" type="button">Return to Main Page</button>
+        </div>
+
+        <!--warehouse manifest-->
+        <div id="divF" class="hidden">
+            <h1>CNA Warehouse Manifest -- Station AAAA</h1>
+            <table id="table5">
+                <thead>
+                    <tr>
+                        <th>Transport ID</th>
+                        <th>Description</th>
+                        <th>Weight</th>
+                    </tr>
+                </thead>
+                <tbody id="divF_tb">
+                </tbody>
+                <tfoot >
+                    <tr><td colspan="3" id="td5">Total Cargo Weight: </td></tr>
+                </tfoot>
+            </table>
+
+
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="return_to_main_page_id_f">Return to Main Page</button>
+        </div>
+
+        <!--all freight status-->
+        <div id="divG" class="hidden">
+            <h1>CNA Freight Status</h1>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button id="return_to_main_page_id_g">Return to Main Page</button>
+        </div>
+    </main>
+    <script src="index.js"></script>
+</body>
+</html>
